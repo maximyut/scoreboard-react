@@ -1,0 +1,13 @@
+{
+  "extends": ["prettier"],
+  "rules": {
+    "jsx-quotes": [1, "prefer-double"],
+    "rules": {
+      "no-unused-vars": [
+        "warn",
+        { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
+      ]
+    }
+  },
+  "plugins": ["prettier"]
+}
