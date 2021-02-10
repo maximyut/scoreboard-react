@@ -1,13 +1,13 @@
 import path from 'path';
-import { app, crashReporter, BrowserWindow, Menu, ipcMain } from 'electron';
+import { app, crashReporter, BrowserWindow, Menu, ipcMain, MenuItem } from 'electron';
+const menu = require('./menu');
+
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 let mainWindow = null;
 let scoreboardWindow = null;
 let forceQuit = false;
-
-
 
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');
@@ -30,8 +30,6 @@ crashReporter.start({
 });
 
 app.on('window-all-closed', () => {
-  // On OS X it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
     app.quit();
   }
@@ -79,7 +77,6 @@ app.on('ready', async () => {
     scoreboardWindow.loadFile(path.resolve(path.join(__dirname, '../renderer/scoreboard.html')));
   };
 
-  // show window once on first load
   mainWindow.webContents.once('did-finish-load', () => {
     mainWindow.show();
   });
@@ -100,7 +97,6 @@ app.on('ready', async () => {
       app.on('before-quit', () => {
         forceQuit = true;
       });
-      mainMenuTemplate.unshift({});
     } else {
       mainWindow.on('closed', () => {
         mainWindow = null;
@@ -108,31 +104,41 @@ app.on('ready', async () => {
     }
   });
 
-  if (isDevelopment) {
-    // auto-open dev tools
-    mainWindow.webContents.openDevTools();
+  const template = [
+    ...(isDevelopment
+      ? [{ role: 'fileMenu' }, { role: 'editMenu' }, { role: 'viewMenu' }, { role: 'windowMenu' }]
+      : []),
+    {
+      label: 'Add scoreboard',
+      click() {
+        createScoreboard();
+      },
+    },
+  ];
 
-    // add inspect element on right click menu
-    mainWindow.webContents.on('context-menu', (e, props) => {
-      Menu.buildFromTemplate([
-        {
-          label: 'Inspect element',
-          click() {
-            mainWindow.inspectElement(props.x, props.y);
+  const context = (props) => [
+    ...(isDevelopment
+      ? [
+          {
+            label: 'Inspect element',
+            click() {
+              mainWindow.inspectElement(props.x, props.y);
+            },
           },
-        },
-        {
-          label: 'Add scoreboard',
-          click() {
-            createScoreboard();
-          },
-        },
-      ]).popup(mainWindow);
-    });
-  }
+        ]
+      : []),
+    {
+      label: 'Add scoreboard',
+      click() {
+        createScoreboard();
+      },
+    },
+  ];
 
-  ipcMain.on('toggle', function (e, value) {
-    scoreboardWindow.webContents.send('toggle', value);
+  mainWindow.webContents.on('context-menu', (e, props) => {
+    Menu.buildFromTemplate(context(props)).popup(mainWindow);
   });
-});
 
+  const mainMenu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(mainMenu);
+});

@@ -1,11 +1,11 @@
-appId: com.example.app
+appId: com.scoreboard.app
 copyright: Example co
-productName: MyApp
+productName: Scoreboard
 
 asar: true
 
 directories:
-  buildResources: dist-assets/
+  buildResources: build/assets
   output: dist/
 
 files:
@@ -30,6 +30,12 @@ mac:
 
 win:
   target: nsis
+  icon: "build/assets/icons/scoreboard.ico"
+
+nsis: 
+  oneClick: "false"
+  allowToChangeInstallationDirectory: "true"
+  installerIcon: "build/assets/icons/scoreboard.ico"
 
 linux:
   target:

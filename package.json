@@ -1,7 +1,7 @@
 {
-  "name": "electron-react-redux-boilerplate",
-  "version": "0.0.0",
-  "description": "electron-react-redux-boilerplate",
+  "name": "scoreboard-app",
+  "version": "1.0.0",
+  "description": "scoreboard-app",
   "main": "init.js",
   "license": "MIT",
   "dependencies": {
@@ -17,7 +17,7 @@
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",
     "redux-localstorage": "^0.4.1",
-    "redux-thunk": "^2.2.0",
+    "redux-thunk": "^2.2.0", 
     "styled-components": "^5.2.1"
   },
   "devDependencies": {
