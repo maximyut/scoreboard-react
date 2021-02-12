@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
+import { connect } from 'react-redux';
+import { setTime, startTime, stopTime, addTime } from '../../redux/actions/actions';
 
 const useInput = (initialValue) => {
   const [value, setValue] = useState(initialValue);
@@ -17,19 +19,16 @@ const useInput = (initialValue) => {
   };
 };
 
+const ControlTime = ({ setTime, startTime, stopTime, going, time, addTime }) => {
+  const timer = useRef('');
 
-const ControlTime = () => {
+  //Остаётся здесь
   const seconds = useInput(0);
   const minutes = useInput(0);
 
-  const [sec, setSec] = useState(0);
-  const [min, setMin] = useState(0);
-  const [dSec, setDSec] = useState(0);
-  const [state, setState] = useState(false);
-
-  const time = useRef(0);
-
-  const timer = useRef('');
+  const submit = () => {
+    setTime(Math.floor((Number(minutes.value) * 60 + Number(seconds.value)) * 10));
+  };
 
   const getZero = (num) => {
     if (num >= -1 && num < 10) {
@@ -39,46 +38,36 @@ const ControlTime = () => {
     }
   };
 
-  const setTime = () => {
-    setMin(Math.floor(time.current / 600));
-    setSec(Math.floor(time.current / 10 - Math.floor(time.current / 600) * 60));
-    setDSec(
-      Math.floor(
-        time.current - Math.floor(time.current / 10 - Math.floor(time.current / 600) * 60) * 10,
-      ),
-    );
-  };
-
-  const toggleTimer = () => {
-    if (!state && time.current > 0) {
-      timer.current = setInterval(() => {
-        if (time.current <= 0) {
-          clearInterval(timer.current);
-          setState((prev) => !prev);
-        } else {
-          time.current--;
-          setTime();
+  const start = (
+    <button
+      onClick={() => {
+        if (!going && time > 0) {
+          timer.current = setInterval(() => {
+            startTime();
+            time = time - 1;
+            console.log(time);
+            if (time == 0) {
+              clearInterval(timer.current);
+              stopTime();
+            }
+          }, 100);
         }
-      }, 100);
-      setState((prev) => !prev);
-    } else if (time.current > 0) {
-      clearInterval(timer.current);
-      setState((prev) => !prev);
-    }
-  };
+      }}>
+      Start
+    </button>
+  );
 
-  const resetTimer = () => {
-    time.current = Math.floor((Number(minutes.value) * 60 + Number(seconds.value)) * 10);
-    setTime();
-  };
+  const stop = (
+    <button
+      onClick={() => {
+        clearInterval(timer.current);
+        stopTime();
+      }}>
+      Stop
+    </button>
+  );
 
-  const addTime = (value) => {
-    time.current += Number(value) * 10;
-    setTime();
-    console.log(time.current);
-  };
-
-  const setButton = state ? 'stop' : 'start';
+  const setButton = going ? stop : start;
 
   return (
     <div>
@@ -95,9 +84,8 @@ const ControlTime = () => {
           type="number"
           value={getZero(seconds.value)}
           onChange={seconds.onChange}></input>
-        <button onClick={resetTimer}>set</button>
-        <button onClick={toggleTimer}>{setButton}</button>
-        {/* <button onClick={resetTimer}>reset</button>
+        <button onClick={submit}>Set</button>
+        {setButton}
         <hr />
         <div>
           <button onClick={() => addTime(1)}>add 1 sec</button>
@@ -107,10 +95,23 @@ const ControlTime = () => {
           <button onClick={() => addTime(-1)}>remove 1 sec</button>
           <button onClick={() => addTime(-5)}>remove -5 sec</button>
           <button onClick={() => addTime(-10)}>remove -10 sec</button>
-        </div> */}
+        </div>
       </div>
     </div>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    time: state.time.time,
+    going: state.time.going,
+  };
+};
 
-export default ControlTime;
+const mapDispatchToProps = {
+  setTime,
+  startTime,
+  stopTime,
+  addTime,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ControlTime);

@@ -20,6 +20,7 @@ const Navbar = () => {
 const Block = styled.div`
   display: flex;
   width: 100%;
+  min-height: 60px;
   height: 10%;
   align-items: center;
   border-bottom: 3px solid gray;

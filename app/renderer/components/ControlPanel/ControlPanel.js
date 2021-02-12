@@ -8,7 +8,7 @@ const ControlPanel = () => {
 
   return (
     <div>
-      {/* <ControlTime/> */}
+      <ControlTime/>
 
     </div>
   );
