@@ -26,6 +26,8 @@ export default function Scoreboard() {
   );
 }
 
+
+
 const Block = styled.div`
   height: 100%;
   -webkit-user-select: none; // отмена выделения текста

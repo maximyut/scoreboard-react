@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 
 const useInput = (initialValue) => {
   const [value, setValue] = useState(initialValue);
@@ -18,7 +17,8 @@ const useInput = (initialValue) => {
   };
 };
 
-export default function Time() {
+
+const ControlTime = () => {
   const seconds = useInput(0);
   const minutes = useInput(0);
 
@@ -81,11 +81,7 @@ export default function Time() {
   const setButton = state ? 'stop' : 'start';
 
   return (
-    <Block>
-      <Timer state={state}>
-        {getZero(min)}:{getZero(sec)}
-        {time.current > 50 ? '' : `.${dSec}`}
-      </Timer>
+    <div>
       <div>
         <input
           min="0"
@@ -101,7 +97,7 @@ export default function Time() {
           onChange={seconds.onChange}></input>
         <button onClick={resetTimer}>set</button>
         <button onClick={toggleTimer}>{setButton}</button>
-        <button onClick={resetTimer}>reset</button>
+        {/* <button onClick={resetTimer}>reset</button>
         <hr />
         <div>
           <button onClick={() => addTime(1)}>add 1 sec</button>
@@ -111,29 +107,10 @@ export default function Time() {
           <button onClick={() => addTime(-1)}>remove 1 sec</button>
           <button onClick={() => addTime(-5)}>remove -5 sec</button>
           <button onClick={() => addTime(-10)}>remove -10 sec</button>
-        </div>
+        </div> */}
       </div>
-    </Block>
+    </div>
   );
-}
+};
 
-const Timer = styled.div`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%) translateY(-50%);
-
-  padding: 5px;
-  min-width: 3%;
-  width: 18vw;
-
-  background-color: black;
-  border: 2px solid white;
-
-  text-align: center;
-  font-family: LCD;
-  font-size: 8vh;
-  color: ${(props) => (props.state ? 'yellow' : 'white')};
-`;
-
-const Block = styled.div``;
+export default ControlTime;

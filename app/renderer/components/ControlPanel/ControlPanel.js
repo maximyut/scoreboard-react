@@ -1,7 +1,17 @@
 import React from 'react';
+import ControlTime from './controlTime';
+
+
 
 const ControlPanel = () => {
-  return <div></div>;
+
+
+  return (
+    <div>
+      {/* <ControlTime/> */}
+
+    </div>
+  );
 };
 
 export default ControlPanel;

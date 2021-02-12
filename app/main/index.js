@@ -1,13 +1,12 @@
 import path from 'path';
-import { app, crashReporter, BrowserWindow, Menu, ipcMain, MenuItem } from 'electron';
-const menu = require('./menu');
-
+import { app, crashReporter, BrowserWindow, Menu, webContents } from 'electron';
+// const menu = require('./menu');
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
-let mainWindow = null;
+let mainWindow;
 let scoreboardWindow = null;
-let forceQuit = false;
+let forceQuit;
 
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');
@@ -27,6 +26,7 @@ crashReporter.start({
   companyName: 'YourCompany',
   submitURL: 'https://your-domain.com/url-to-submit',
   uploadToServer: false,
+  compress: true,
 });
 
 app.on('window-all-closed', () => {
@@ -40,42 +40,39 @@ app.on('ready', async () => {
     await installExtensions();
   }
 
-  mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 800,
-    minWidth: 640,
-    minHeight: 480,
-    show: false,
-    webPreferences: {
-      nodeIntegration: true,
-    },
-  });
-
-  mainWindow.loadFile(path.resolve(path.join(__dirname, '../renderer/index.html')));
-
-  const createScoreboard = () => {
-    console.log(mainWindow);
-    scoreboardWindow = new BrowserWindow({
-      resizable: false,
-      fullscreen: true,
-      frame: false,
-      title: 'scoreboard',
+  const createMainWindow = () => {
+    mainWindow = new BrowserWindow({
+      width: 1000,
+      height: 800,
+      minWidth: 640,
+      minHeight: 480,
+      show: false,
       webPreferences: {
         nodeIntegration: true,
       },
     });
 
-    scoreboardWindow.on('close', function () {
-      scoreboardWindow = null;
-    });
-    scoreboardWindow.webContents.on('before-input-event', (event, input) => {
-      if (input.key === 'Escape') {
-        scoreboardWindow.close();
-      }
+    mainWindow.loadURL(`file://${__dirname}/../renderer/index.html`);
+  };
+
+  createMainWindow();
+
+  const createScoreboard = () => {
+    scoreboardWindow = new BrowserWindow({
+      resizable: false,
+      fullscreen: true,
+      frame: false,
+      title: 'scoreboard',
+      show: false,
+      webPreferences: {
+        nodeIntegration: true,
+      },
     });
 
-    scoreboardWindow.loadFile(path.resolve(path.join(__dirname, '../renderer/scoreboard.html')));
+    scoreboardWindow.loadURL(`file://${__dirname}/../renderer/scoreboard.html`);
   };
+
+  createScoreboard();
 
   mainWindow.webContents.once('did-finish-load', () => {
     mainWindow.show();
@@ -109,9 +106,31 @@ app.on('ready', async () => {
       ? [{ role: 'fileMenu' }, { role: 'editMenu' }, { role: 'viewMenu' }, { role: 'windowMenu' }]
       : []),
     {
-      label: 'Add scoreboard',
+      label: 'Scoreboard',
+      submenu: [
+        {
+          label: 'Add scoreboard',
+          click() {
+            if (!scoreboardWindow.isVisible()) {
+              scoreboardWindow.show();
+            }
+          },
+        },
+        {
+          label: 'Close scoreboard',
+          click() {
+            scoreboardWindow.hide();
+          },
+        },
+      ],
+    },
+    {
+      label: 'Console',
       click() {
-        createScoreboard();
+        console.log(mainWindow.isVisible());
+        console.log(scoreboardWindow.isEnabled());
+
+        console.log(BrowserWindow.fromId(1));
       },
     },
   ];

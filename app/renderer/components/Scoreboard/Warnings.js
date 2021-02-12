@@ -117,7 +117,6 @@ export default function Warnings({ color }) {
 
 const Block = styled.div`
   text-align: center;
-  margin-bottom: 50px;
 `;
 
 const Table = styled.table`
@@ -131,8 +130,8 @@ const Tr = styled.tr`
 const Circle = styled.div.attrs((props) => ({
   color: props.color === 'Aka' ? 'red' : 'blue',
 }))`
-  width: 40px;
-  height: 40px;
+  width: 4vh;
+  height: 4vh;
   border-radius: 50%;
   background-color: ${(props) => (props.state ? props.color : 'white')};
   margin: 0 auto;

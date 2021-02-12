@@ -28,7 +28,7 @@ export default function Points({ color, p }) {
 }
 
 const Block = styled.div`
-  font-size: 10vh;
+  font-size: 20vmin;
   font-family: LCD;
   text-align: center;
 `;
@@ -39,15 +39,15 @@ const Senshu = styled.div.attrs((props) => ({
   position: relative;
   left: ${(props) => (props.color === 'red' ? '70%' : '10%')};
 
-  height: 50px;
-  width: 50px;
+  height: 5vh;
+  width: 5vh;
 
   border-radius: 50%;
   background-color: ${(props) => (props.state ? props.color : 'black')};
 
   text-align: center;
   vertical-align: center;
-  font-size: 5vh;
+  font-size: 5vmin;
   color: ${(props) => (props.state ? 'white' : 'black')};
   font-family: 'Times New Roman', Times, serif;
 `;
