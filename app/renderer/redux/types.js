@@ -2,4 +2,11 @@ export const SET_TIME = 'TIME/SET_TIME';
 export const START_TIME = 'TIME/START_TIME';
 export const STOP_TIME = 'TIME/STOP_TIME';
 export const ADD_TIME = 'TIME/ADD_TIME';
-export const SUB_TIME = 'TIME/SUB_TIME';
+
+export const CHANGE_POINTS_AKA = 'POINTS/CHANGE_POINTS_AKA';
+export const CHANGE_POINTS_AO = 'POINTS/CHANGE_POINTS_AO';
+export const SET_SENSHU = 'POINTS/SET_SENSHU';
+export const SET_WINNER = 'POINTS/SET_WINNER';
+
+
+

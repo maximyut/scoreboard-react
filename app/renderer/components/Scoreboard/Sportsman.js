@@ -15,7 +15,7 @@ export default function Sportsman({ color, p }) {
         </div>
       </Info>
 
-      <Points color={color} p={p} />
+      <Points color={color} />
       <Warnings color={color} />
     </Block>
   );
@@ -34,8 +34,8 @@ const Block = styled.div`
   background-color: black;
 
   font-size: 4vh;
-  text-align: ${(props) => (props.color == 'Aka' ? 'left' : 'right')};
-  color: ${(props) => (props.color == 'Aka' ? 'red' : 'blue')};
+  text-align: ${(props) => (props.color == 'aka' ? 'left' : 'right')};
+  color: ${(props) => (props.color == 'aka' ? 'red' : 'blue')};
 `;
 
 const Img = styled.img`

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
-import { setTime, startTime, stopTime, addTime } from '../../redux/actions/actions';
+import { setTime, startTime, stopTime, changeTime } from '../../redux/actions/time';
+import { setWinner } from '../../redux/actions/points';
 
 const useInput = (initialValue) => {
   const [value, setValue] = useState(initialValue);
@@ -19,7 +20,7 @@ const useInput = (initialValue) => {
   };
 };
 
-const ControlTime = ({ setTime, startTime, stopTime, going, time, addTime }) => {
+const ControlTime = ({ setTime, startTime, stopTime, going, time, changeTime, setWinner }) => {
   const timer = useRef('');
 
   //Остаётся здесь
@@ -45,10 +46,10 @@ const ControlTime = ({ setTime, startTime, stopTime, going, time, addTime }) => 
           timer.current = setInterval(() => {
             startTime();
             time = time - 1;
-            console.log(time);
             if (time == 0) {
               clearInterval(timer.current);
               stopTime();
+              setWinner();
             }
           }, 100);
         }
@@ -88,13 +89,13 @@ const ControlTime = ({ setTime, startTime, stopTime, going, time, addTime }) => 
         {setButton}
         <hr />
         <div>
-          <button onClick={() => addTime(1)}>add 1 sec</button>
-          <button onClick={() => addTime(5)}>add 5 sec</button>
-          <button onClick={() => addTime(10)}>add 10 sec</button>
+          <button onClick={() => changeTime(1)}>add 1 sec</button>
+          <button onClick={() => changeTime(5)}>add 5 sec</button>
+          <button onClick={() => changeTime(10)}>add 10 sec</button>
           <br />
-          <button onClick={() => addTime(-1)}>remove 1 sec</button>
-          <button onClick={() => addTime(-5)}>remove -5 sec</button>
-          <button onClick={() => addTime(-10)}>remove -10 sec</button>
+          <button onClick={() => changeTime(-1)}>remove 1 sec</button>
+          <button onClick={() => changeTime(-5)}>remove -5 sec</button>
+          <button onClick={() => changeTime(-10)}>remove -10 sec</button>
         </div>
       </div>
     </div>
@@ -111,7 +112,8 @@ const mapDispatchToProps = {
   setTime,
   startTime,
   stopTime,
-  addTime,
+  changeTime,
+  setWinner,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ControlTime);

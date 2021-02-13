@@ -1,5 +1,6 @@
 import React from 'react';
-import ControlTime from './controlTime';
+import ControlPoints from './ControlPoints';
+import ControlTime from './ControlTime';
 
 
 
@@ -9,7 +10,7 @@ const ControlPanel = () => {
   return (
     <div>
       <ControlTime/>
-
+      <ControlPoints/>
     </div>
   );
 };

@@ -4,23 +4,13 @@ import Time from './Time';
 import styled from 'styled-components';
 
 export default function Scoreboard() {
-  const [state, setState] = useState(0);
-
-  const p = (value) => {
-    setState((value) => value);
-    return value;
-  };
-
-  const r = () => {
-    console.log(p());
-  };
 
   return (
     <Block>
       <Sportsmen>
-        <Sportsman color={'Aka'} p={p} />
+        <Sportsman color={'aka'} />
         <Time />
-        <Sportsman color={'Ao'} p={p} />
+        <Sportsman color={'ao'} />
       </Sportsmen>
     </Block>
   );

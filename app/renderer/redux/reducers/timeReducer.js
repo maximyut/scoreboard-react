@@ -1,5 +1,4 @@
-import { SET_TIME, START_TIME, STOP_TIME, ADD_TIME, SUB_TIME } from '../types';
-import { setTime } from '../actions/actions';
+import { SET_TIME, START_TIME, STOP_TIME, CHANGE_TIME } from '../types';
 
 const initialState = {
   going: false,
@@ -24,7 +23,7 @@ export const timeReducer = (state = initialState, action) => {
       };
     case STOP_TIME:
       return { ...state, going: false };
-    case ADD_TIME:
+    case CHANGE_TIME:
       return {
         ...state,
         time: state.time + action.payload * 10,

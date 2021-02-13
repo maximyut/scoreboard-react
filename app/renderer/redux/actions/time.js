@@ -1,4 +1,4 @@
-import { ADD_TIME, SET_TIME, START_TIME, STOP_TIME, SUB_TIME } from '../types';
+import { CHANGE_TIME, SET_TIME, START_TIME, STOP_TIME } from '../types';
 
 export function setTime(value) {
   return {
@@ -19,16 +19,9 @@ export function stopTime() {
   };
 }
 
-export function addTime(value) {
+export function changeTime(value) {
   return {
-    type: ADD_TIME,
-    payload: value,
-  };
-}
-
-export function subTime(value) {
-  return {
-    type: SUB_TIME,
+    type: CHANGE_TIME,
     payload: value,
   };
 }

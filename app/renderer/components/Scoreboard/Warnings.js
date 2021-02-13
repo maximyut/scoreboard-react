@@ -128,7 +128,7 @@ const Tr = styled.tr`
 `;
 
 const Circle = styled.div.attrs((props) => ({
-  color: props.color === 'Aka' ? 'red' : 'blue',
+  color: props.color === 'aka' ? 'red' : 'blue',
 }))`
   width: 4vh;
   height: 4vh;
