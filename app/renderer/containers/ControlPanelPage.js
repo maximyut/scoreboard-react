@@ -10,9 +10,9 @@ export default function ControlPanelPage() {
         <ControlPanel />
       </Panel>
       <Board>
-        <Scoreboard />
+        <Scoreboard main={true}/>
       </Board>
-      <Console></Console>
+      {/* <Console></Console> */}
     </Block>
   );
 }
@@ -20,8 +20,8 @@ export default function ControlPanelPage() {
 const Block = styled.div`
   height: 90%;
   display: grid;
-  grid-template-columns: repeat(2, 50%);
-  grid-template-rows: 65% auto;
+  grid-template-columns: repeat(2,  50%);
+  grid-template-rows: minmax(500px, 65%) auto;
 `;
 
 const Board = styled.div`

@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import Points from './Points';
 import Warnings from './Warnings';
 
-export default function Sportsman({ color, p }) {
+export default function Sportsman({ color, main }) {
   return (
     <Block color={color}>
       <Info>
-        <div>{color}</div>
+        <div>{color.toUpperCase()}</div>
         <div>FirstName SecondName</div>
         <div>
           <Img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAT4AAACfCAMAAABX0UX9AAAACVBMVEX////MAAD++PjIIjjTAAAAsElEQVR4nO3cAQkAIBDAwNf+oQ0xQZC7CAuwGQAAAAAAAAAAAAAAAAAAAICLNsEsAvkS+RL5EvkS+RL5EvkS+RL5EvkS+RL5EvkS+RL5EvkS+RL5EvkS+RL5EvkS+RL5EvkS+RL5EvkS+RL5EvkS+RL5EvkS+RL5EvkS+RL5EvkS+RL5EvkS+RL5EvkS+RL5EvkS+RL5EvkSJ43k9QcFAAAAAAAAAAAAAAAAAAAA+MsBm4BGz5N99MoAAAAASUVORK5CYII=" />
@@ -15,7 +15,7 @@ export default function Sportsman({ color, p }) {
         </div>
       </Info>
 
-      <Points color={color} />
+      <Points color={color} main={main}/>
       <Warnings color={color} />
     </Block>
   );
@@ -34,7 +34,8 @@ const Block = styled.div`
   background-color: black;
 
   font-size: 4vh;
-  text-align: ${(props) => (props.color == 'aka' ? 'left' : 'right')};
+  /* text-align: ${(props) => (props.color == 'aka' ? 'left' : 'right')}; */
+  text-align: center;
   color: ${(props) => (props.color == 'aka' ? 'red' : 'blue')};
 `;
 

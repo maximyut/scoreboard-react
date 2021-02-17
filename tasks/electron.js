@@ -1,6 +1,8 @@
 const { spawn } = require('child_process');
 const electron = require('electron');
 
+const { app } = require('electron')
+
 let subprocess;
 
 function startElectron(done) {
@@ -11,10 +13,13 @@ function startElectron(done) {
   done();
 }
 
+
 function stopElectron() {
   subprocess.kill();
   return subprocess;
 }
+
+
 
 startElectron.displayName = 'start-electron';
 stopElectron.displayName = 'stop-electron';
