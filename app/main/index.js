@@ -1,25 +1,19 @@
 import path from 'path';
 import { app, crashReporter, BrowserWindow, Menu, webContents } from 'electron';
 // const menu = require('./menu');
+import configureStore from '../renderer/redux/store';
+
+// import installExtension, {
+//   REACT_DEVELOPER_TOOLS,
+//   REDUX_DEVTOOLS,
+//   REACT_PERF,
+// } from 'electron-devtools-installer';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 let mainWindow;
 let scoreboardWindow = null;
 let forceQuit;
-
-const installExtensions = async () => {
-  const installer = require('electron-devtools-installer');
-  const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
-  const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-  for (const name of extensions) {
-    try {
-      await installer.default(installer[name], forceDownload);
-    } catch (e) {
-      console.log(`Error installing ${name} extension: ${e.message}`);
-    }
-  }
-};
 
 crashReporter.start({
   productName: 'YourName',
@@ -36,9 +30,16 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', async () => {
-  if (isDevelopment) {
-    await installExtensions();
-  }
+  // if (isDevelopment) {
+  //   app.whenReady().then(() => {
+  //     installExtension(REDUX_DEVTOOLS)
+  //       .then((name) => console.log(`Added Extension:  ${name}`))
+  //       .catch((err) => console.log('An error occurred: ', err));
+  //     installExtension(REACT_DEVELOPER_TOOLS)
+  //       .then((name) => console.log(`Added Extension:  ${name}`))
+  //       .catch((err) => console.log('An error occurred: ', err));
+  //   });
+  // }
 
   const createMainWindow = () => {
     mainWindow = new BrowserWindow({
@@ -49,6 +50,7 @@ app.on('ready', async () => {
       show: false,
       webPreferences: {
         nodeIntegration: true,
+        enableRemoteModule: true,
       },
     });
 
@@ -66,6 +68,7 @@ app.on('ready', async () => {
       show: false,
       webPreferences: {
         nodeIntegration: true,
+        enableRemoteModule: true,
       },
     });
 
@@ -73,6 +76,18 @@ app.on('ready', async () => {
   };
 
   createScoreboard();
+
+  scoreboardWindow.on('close', () => {
+    createScoreboard();
+  });
+
+  mainWindow.on('closed', function () {
+    app.quit();
+  });
+
+  mainWindow.webContents.once('did-finish-load', () => {
+    mainWindow.show();
+  });
 
   mainWindow.webContents.once('did-finish-load', () => {
     mainWindow.show();
@@ -160,4 +175,12 @@ app.on('ready', async () => {
 
   const mainMenu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(mainMenu);
+
+  const state = {};
+
+  const store = configureStore(state, 'main');
+
+  // ipcMain.on('sync-state', (e) => {
+  //   scoreboardWindow.webContents.send(store.getState());
+  // });
 });
