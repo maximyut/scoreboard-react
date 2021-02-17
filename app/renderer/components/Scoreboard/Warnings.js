@@ -1,95 +1,43 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-const useCheckbox = (initialValue) => {
-  const [checked, setChecked] = useState(initialValue);
-
-  const onChange = () => {
-    setChecked((prev) => !prev);
-  };
-
-  const clear = () => setChecked(false);
-
-  return {
-    bind: { checked, onChange },
-    onChange,
-    checked,
-    clear,
-  };
-};
-
-export default function Warnings({ color }) {
-  const C1C = useCheckbox(false),
-    C1K = useCheckbox(false),
-    C1HC = useCheckbox(false),
-    C1H = useCheckbox(false),
-    C2C = useCheckbox(false),
-    C2K = useCheckbox(false),
-    C2HC = useCheckbox(false),
-    C2H = useCheckbox(false);
-
-  const mainColor = color == 'Aka' ? 'red' : 'blue';
+const Warnings = ({ color, warnings }) => {
+  const C1C = color == 'aka' ? warnings.akac1c : warnings.aoc1c,
+    C1K = color == 'aka' ? warnings.akac1k : warnings.aoc1k,
+    C1HC = color == 'aka' ? warnings.akac1hc : warnings.aoc1hc,
+    C1H = color == 'aka' ? warnings.akac1h : warnings.aoc1h,
+    C2C = color == 'aka' ? warnings.akac2c : warnings.aoc2c,
+    C2K = color == 'aka' ? warnings.akac2k : warnings.aoc2k,
+    C2HC = color == 'aka' ? warnings.akac2hc : warnings.aoc2hc,
+    C2H = color == 'aka' ? warnings.akac2h : warnings.aoc2h;
 
   return (
     <Block>
-      {/* <div>
-        <label>
-          C1
-          <input type="checkbox" {...C1C.bind} />
-        </label>
-        <label>
-          C1K
-          <input type="checkbox" {...C1K.bind} />
-        </label>
-        <label>
-          C1HC
-          <input type="checkbox" {...C1HC.bind} />
-        </label>
-        <label>
-          C1H
-          <input type="checkbox" {...C1H.bind} />
-        </label>
-        <label>
-          C2C
-          <input type="checkbox" {...C2C.bind} />
-        </label>
-        <label>
-          C2K
-          <input type="checkbox" {...C2K.bind} />
-        </label>
-        <label>
-          C2HC
-          <input type="checkbox" {...C2HC.bind} />
-        </label>
-        <label>
-          C2H
-          <input type="checkbox" {...C2H.bind} />
-        </label>
-      </div> */}
       <Table>
         <thead>
           <Tr>
-            <th></th>
-            <th>C</th>
-            <th>K</th>
-            <th>HC</th>
-            <th>H</th>
+            <Th></Th>
+            <Th>C</Th>
+            <Th>K</Th>
+            <Th>HC</Th>
+            <Th>H</Th>
           </Tr>
         </thead>
         <tbody>
           <Tr>
             <td>C1</td>
             <td>
-              <Circle state={C1C.checked} color={color} />
+              <Circle state={C1C} color={color} />
             </td>
             <td>
-              <Circle state={C1K.checked} color={color} />
+              <Circle state={C1K} color={color} />
             </td>
             <td>
-              <Circle state={C1HC.checked} color={color} />
+              <Circle state={C1HC} color={color} />
             </td>
             <td>
-              <Circle state={C1H.checked} color={color} />
+              <Circle state={C1H} color={color} />
             </td>
           </Tr>
         </tbody>
@@ -97,23 +45,31 @@ export default function Warnings({ color }) {
           <Tr>
             <td>C2</td>
             <td>
-              <Circle state={C2C.checked} color={color} />
+              <Circle state={C2C} color={color} />
             </td>
             <td>
-              <Circle state={C2K.checked} color={color} />
+              <Circle state={C2K} color={color} />
             </td>
             <td>
-              <Circle state={C2HC.checked} color={color} />
+              <Circle state={C2HC} color={color} />
             </td>
             <td>
-              <Circle state={C2H.checked} color={color} />
+              <Circle state={C2H} color={color} />
             </td>
           </Tr>
         </tbody>
       </Table>
     </Block>
   );
-}
+};
+
+const mapStateToProps = (state) => {
+  return {
+    warnings: state.warnings,
+  };
+};
+
+export default connect(mapStateToProps)(Warnings);
 
 const Block = styled.div`
   text-align: center;
@@ -127,6 +83,10 @@ const Tr = styled.tr`
   height: 6vh;
 `;
 
+const Th = styled.th`
+  width: 8vw;
+`;
+
 const Circle = styled.div.attrs((props) => ({
   color: props.color === 'aka' ? 'red' : 'blue',
 }))`
@@ -136,5 +96,3 @@ const Circle = styled.div.attrs((props) => ({
   background-color: ${(props) => (props.state ? props.color : 'white')};
   margin: 0 auto;
 `;
-
-
