@@ -1,16 +1,29 @@
-import { CHANGE_POINTS_AKA, CHANGE_POINTS_AO, SET_SENSHU, SET_WINNER } from '../types';
+import { CHANGE_POINTS_AKA, CHANGE_POINTS_AO, RESET_POINTS, SET_SENSHU } from '../types';
+import { setWinner } from './winner';
 
 export function changePointsAka(value) {
-  return {
-    type: CHANGE_POINTS_AKA,
-    payload: value,
+  return (dispatch, setState) => {
+    dispatch({ type: CHANGE_POINTS_AKA, payload: value });
+
+    const { points } = setState(),
+      pointsAka = points.pointsAka + value,
+      pointsAo = points.pointsAo;
+    console.log(pointsAka, pointsAo);
+    if (Math.abs(pointsAka - pointsAo) >= 8) {
+      dispatch(setWinner());
+    }
   };
 }
 
 export function changePointsAo(value) {
-  return {
-    type: CHANGE_POINTS_AO,
-    payload: value,
+  return (dispatch, setState) => {
+    dispatch({ type: CHANGE_POINTS_AO, payload: value });
+    const { points } = setState(),
+      pointsAka = points.pointsAka,
+      pointsAo = points.pointsAo + value;
+    if (Math.abs(pointsAka - pointsAo) >= 8) {
+      dispatch(setWinner());
+    }
   };
 }
 
@@ -21,9 +34,8 @@ export function setSenshu(value) {
   };
 }
 
-export function setWinner(value) {
+export function resetPoints() {
   return {
-    type: SET_WINNER,
-    payload: value,
+    type: RESET_POINTS,
   };
 }

@@ -1,9 +1,21 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
-const Points = ({ color, pointsAka, pointsAo, senshu, winner }) => {
+const Points = ({
+  color,
+  pointsAka,
+  pointsAo,
+  senshu,
+  winner,
+  mainPosition,
+  outPosition,
+  main,
+}) => {
   const points = color === 'aka' ? pointsAka : pointsAo;
+  const position = main ? mainPosition : outPosition;
+
+  console.log(winner)
 
   return (
     <Block>
@@ -11,7 +23,8 @@ const Points = ({ color, pointsAka, pointsAo, senshu, winner }) => {
         <Senshu c={color} senshu={senshu}>
           S
         </Senshu>
-        <Point c={color} winner={winner}>
+
+        <Point c={color} winner={winner} position={position}>
           {points}
         </Point>
       </div>
@@ -24,7 +37,9 @@ const mapStateToProps = (state) => {
     pointsAka: state.points.pointsAka,
     pointsAo: state.points.pointsAo,
     senshu: state.points.senshu,
-    winner: state.points.winner,
+    winner: state.winner.winner,
+    mainPosition: state.scoreboard.main,
+    outPosition: state.scoreboard.out,
   };
 };
 
@@ -36,13 +51,33 @@ const Block = styled.div`
   text-align: center;
 `;
 
+const rotate = keyframes`
+  from {
+    opacity: 0%;
+  }
+
+  to {
+    opacity: 100%;
+  }
+`;
+
+const complexMixin = css`
+  color: ${(props) => (props.whiteColor ? 'white' : 'black')};
+`;
+
 const Point = styled.div.attrs((props) => ({
   color: props.c === 'aka' ? 'red' : 'blue',
+  a: props.position === 'right' ? 'right' : 'left',
+  o: props.position === 'right' ? 'left' : 'right',
 }))`
   font-size: 20vmin;
   font-family: LCD;
-  text-align: center;
-  color: ${(props) => (props.winner !== 'null' && props.c == props.winner ? 'white' : props.color)};
+  text-align: ${(props) => (props.c === 'aka' ? props.a : props.o)};
+  color: ${(props) => (props.color)};
+
+  animation-name: ${(props) => (props.winner !== 'null' && props.c == props.winner ? rotate : 'none')};
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
 `;
 
 const Senshu = styled.div.attrs((props) => ({
