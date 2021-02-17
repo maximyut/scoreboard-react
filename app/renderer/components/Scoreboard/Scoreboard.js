@@ -2,21 +2,33 @@ import React, { useState } from 'react';
 import Sportsman from './Sportsman';
 import Time from './Time';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
-export default function Scoreboard() {
+const Scoreboard = ({ main }) => {
+  const mainPosition = useSelector((state) => state.scoreboard.main);
+  const outPosition = useSelector((state) => state.scoreboard.out);
 
-  return (
-    <Block>
+  const position = main ? mainPosition : outPosition;
+
+  const content =
+    position == 'left' ? (
       <Sportsmen>
-        <Sportsman color={'aka'} />
+        <Sportsman color={'aka'} main={main} />
         <Time />
-        <Sportsman color={'ao'} />
+        <Sportsman color={'ao'} main={main} />
       </Sportsmen>
-    </Block>
-  );
-}
+    ) : (
+      <Sportsmen>
+        <Sportsman color={'ao'} main={main} />
+        <Time />
+        <Sportsman color={'aka'} main={main} />
+      </Sportsmen>
+    );
 
+  return <Block>{content}</Block>;
+};
 
+export default Scoreboard;
 
 const Block = styled.div`
   height: 100%;

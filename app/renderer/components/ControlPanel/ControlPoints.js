@@ -1,65 +1,129 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { changePointsAka, changePointsAo, setSenshu, setWinner } from '../../redux/actions/points';
+import React, { useEffect, useState } from 'react';
+import { connect, useSelector } from 'react-redux';
+import {
+  changePointsAka,
+  changePointsAo,
+  setSenshu,
+  resetPoints,
+} from '../../redux/actions/points';
 
 import styled from 'styled-components';
 
-const ControlPoints = ({
-  changePointsAka,
-  pointsAka,
-  changePointsAo,
-  pointsAo,
-  setSenshu,
-  senshu,
-  setWinner,
-  winner,
-}) => {
-
+const ControlPoints = ({ changePointsAka, changePointsAo, setSenshu, senshu, resetPoints }) => {
   const onValueChange = (event) => {
     setSenshu(event.target.value);
   };
 
+  const aka = useSelector((state) => state.scoreboard.aka);
+
+  const content =
+    aka == 'left' ? (
+      <Buttons>
+        <Sportsman>
+          <div>
+            <Button color={'aka'} onClick={() => changePointsAka(1)}>
+              Yuko
+            </Button>
+            <Button color={'aka'} onClick={() => changePointsAka(2)}>
+              Waza-ari
+            </Button>
+            <Button color={'aka'} onClick={() => changePointsAka(3)}>
+              Ippon
+            </Button>
+          </div>
+          <div>
+            <Button color={'aka'} onClick={() => changePointsAka(-1)}>
+              -Yuko
+            </Button>
+            <Button color={'aka'} onClick={() => changePointsAka(-2)}>
+              -Waza-ari
+            </Button>
+            <Button color={'aka'} onClick={() => changePointsAka(-3)}>
+              -Ippon
+            </Button>
+          </div>
+        </Sportsman>
+        <Sportsman>
+          <div>
+            <Button color={'ao'} onClick={() => changePointsAo(1)}>
+              Yuko
+            </Button>
+            <Button color={'ao'} onClick={() => changePointsAo(2)}>
+              Waza-ari
+            </Button>
+            <Button color={'ao'} onClick={() => changePointsAo(3)}>
+              Ippon
+            </Button>
+          </div>
+          <div>
+            <Button color={'ao'} onClick={() => changePointsAo(-1)}>
+              -Yuko
+            </Button>
+            <Button color={'ao'} onClick={() => changePointsAo(-2)}>
+              -Waza-ari
+            </Button>
+            <Button color={'ao'} onClick={() => changePointsAo(-3)}>
+              -Ippon
+            </Button>
+          </div>
+        </Sportsman>
+      </Buttons>
+    ) : (
+      <Buttons>
+        <Sportsman>
+          <div>
+            <Button color={'ao'} onClick={() => changePointsAo(1)}>
+              Yuko
+            </Button>
+            <Button color={'ao'} onClick={() => changePointsAo(2)}>
+              Waza-ari
+            </Button>
+            <Button color={'ao'} onClick={() => changePointsAo(3)}>
+              Ippon
+            </Button>
+          </div>
+          <div>
+            <Button color={'ao'} onClick={() => changePointsAo(-1)}>
+              -Yuko
+            </Button>
+            <Button color={'ao'} onClick={() => changePointsAo(-2)}>
+              -Waza-ari
+            </Button>
+            <Button color={'ao'} onClick={() => changePointsAo(-3)}>
+              -Ippon
+            </Button>
+          </div>
+        </Sportsman>
+        <Sportsman>
+          <div>
+            <Button color={'aka'} onClick={() => changePointsAka(1)}>
+              Yuko
+            </Button>
+            <Button color={'aka'} onClick={() => changePointsAka(2)}>
+              Waza-ari
+            </Button>
+            <Button color={'aka'} onClick={() => changePointsAka(3)}>
+              Ippon
+            </Button>
+          </div>
+          <div>
+            <Button color={'aka'} onClick={() => changePointsAka(-1)}>
+              -Yuko
+            </Button>
+            <Button color={'aka'} onClick={() => changePointsAka(-2)}>
+              -Waza-ari
+            </Button>
+            <Button color={'aka'} onClick={() => changePointsAka(-3)}>
+              -Ippon
+            </Button>
+          </div>
+        </Sportsman>
+      </Buttons>
+    );
+
   return (
     <div>
-      <div>
-        <Button color={'aka'} onClick={() => changePointsAka(1)}>
-          Yuko
-        </Button>
-        <Button color={'aka'} onClick={() => changePointsAka(2)}>
-          Waza-ari
-        </Button>
-        <Button color={'aka'} onClick={() => changePointsAka(3)}>
-          Ippon{' '}
-        </Button>
-        <Button color={'ao'} onClick={() => changePointsAo(1)}>
-          Yuko
-        </Button>
-        <Button color={'ao'} onClick={() => changePointsAo(2)}>
-          Waza-ari
-        </Button>
-        <Button color={'ao'} onClick={() => changePointsAo(3)}>
-          Ippon{' '}
-        </Button>
-        <br />
-        <Button color={'aka'} onClick={() => changePointsAka(-1)}>
-          -Yuko
-        </Button>
-        <Button color={'aka'} onClick={() => changePointsAka(-2)}>
-          -Waza-ari
-        </Button>
-        <Button color={'aka'} onClick={() => changePointsAka(-3)}>
-          -Ippon{' '}
-        </Button>
-        <Button color={'ao'} onClick={() => changePointsAo(-1)}>
-          -Yuko
-        </Button>
-        <Button color={'ao'} onClick={() => changePointsAo(-2)}>
-          -Waza-ari
-        </Button>
-        <Button color={'ao'} onClick={() => changePointsAo(-3)}>
-          -Ippon{' '}
-        </Button>
-      </div>
+      {content}
       <div>
         Senshu
         <input
@@ -80,15 +144,14 @@ const ControlPoints = ({
         Ao
         <input
           type="radio"
-          value="null"
+          value="no"
           name="senshu"
-          checked={senshu === 'null'}
+          checked={senshu === 'no'}
           onChange={onValueChange}
         />
-        Null
+        No
       </div>
-      <button onClick={() => setWinner()}>Win: </button>
-      {winner}
+      <button onClick={() => resetPoints()}>RESET points</button>
     </div>
   );
 };
@@ -106,11 +169,20 @@ const mapDispatchToProps = {
   changePointsAka,
   changePointsAo,
   setSenshu,
-  setWinner,
+  resetPoints,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ControlPoints);
 
 const Button = styled.button`
   color: ${(props) => (props.color === 'aka' ? 'red' : 'blue')};
+`;
+
+const Buttons = styled.div`
+  display: flex;
+`;
+
+const Sportsman = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
