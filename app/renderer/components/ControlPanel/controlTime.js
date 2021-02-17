@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { setTime, startTime, stopTime, changeTime } from '../../redux/actions/time';
-import { setWinner } from '../../redux/actions/points';
+import { setWinner } from '../../redux/actions/winner';
 
 const useInput = (initialValue) => {
   const [value, setValue] = useState(initialValue);
@@ -20,15 +20,13 @@ const useInput = (initialValue) => {
   };
 };
 
-const ControlTime = ({ setTime, startTime, stopTime, going, time, changeTime, setWinner }) => {
-  const timer = useRef('');
-
-  //Остаётся здесь
+const ControlTime = ({ setTime, startTime, stopTime, going, changeTime, updateData }) => {
   const seconds = useInput(0);
   const minutes = useInput(0);
 
   const submit = () => {
     setTime(Math.floor((Number(minutes.value) * 60 + Number(seconds.value)) * 10));
+    updateData(Math.floor((Number(minutes.value) * 60 + Number(seconds.value)) * 10))
   };
 
   const getZero = (num) => {
@@ -39,34 +37,9 @@ const ControlTime = ({ setTime, startTime, stopTime, going, time, changeTime, se
     }
   };
 
-  const start = (
-    <button
-      onClick={() => {
-        if (!going && time > 0) {
-          timer.current = setInterval(() => {
-            startTime();
-            time = time - 1;
-            if (time == 0) {
-              clearInterval(timer.current);
-              stopTime();
-              setWinner();
-            }
-          }, 100);
-        }
-      }}>
-      Start
-    </button>
-  );
+  const start = <button onClick={() => startTime()}>Start</button>;
 
-  const stop = (
-    <button
-      onClick={() => {
-        clearInterval(timer.current);
-        stopTime();
-      }}>
-      Stop
-    </button>
-  );
+  const stop = <button onClick={() => stopTime()}>Stop</button>;
 
   const setButton = going ? stop : start;
 
@@ -103,7 +76,6 @@ const ControlTime = ({ setTime, startTime, stopTime, going, time, changeTime, se
 };
 const mapStateToProps = (state) => {
   return {
-    time: state.time.time,
     going: state.time.going,
   };
 };
