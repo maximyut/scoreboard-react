@@ -43,9 +43,9 @@ app.on('ready', async () => {
 
   const createMainWindow = () => {
     mainWindow = new BrowserWindow({
-      width: 1000,
+      width: 1100,
       height: 800,
-      minWidth: 640,
+      minWidth: 1100,
       minHeight: 480,
       show: false,
       webPreferences: {
@@ -118,7 +118,21 @@ app.on('ready', async () => {
 
   const template = [
     ...(isDevelopment
-      ? [{ role: 'fileMenu' }, { role: 'editMenu' }, { role: 'viewMenu' }, { role: 'windowMenu' }]
+      ? [
+          { role: 'fileMenu' },
+          { role: 'editMenu' },
+          { role: 'viewMenu' },
+          { role: 'windowMenu' },
+          {
+            label: 'Console',
+            click() {
+              console.log(mainWindow.isVisible());
+              console.log(scoreboardWindow.isEnabled());
+
+              console.log(BrowserWindow.fromId(1));
+            },
+          },
+        ]
       : []),
     {
       label: 'Scoreboard',
@@ -138,15 +152,6 @@ app.on('ready', async () => {
           },
         },
       ],
-    },
-    {
-      label: 'Console',
-      click() {
-        console.log(mainWindow.isVisible());
-        console.log(scoreboardWindow.isEnabled());
-
-        console.log(BrowserWindow.fromId(1));
-      },
     },
   ];
 

@@ -14,10 +14,10 @@ const ControlPoints = ({ changePointsAka, changePointsAo, setSenshu, senshu, res
     setSenshu(event.target.value);
   };
 
-  const aka = useSelector((state) => state.scoreboard.aka);
+  const main = useSelector((state) => state.scoreboard.main);
 
   const content =
-    aka == 'left' ? (
+  main == 'left' ? (
       <Buttons>
         <Sportsman>
           <div>

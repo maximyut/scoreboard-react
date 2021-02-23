@@ -47,6 +47,7 @@ const ControlPanel = ({
     setScoreboard(event.target.value);
   };
 
+
   return (
     <div>
       <ControlTime updateData={updateData} />

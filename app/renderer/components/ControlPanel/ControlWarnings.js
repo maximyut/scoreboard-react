@@ -38,7 +38,7 @@ const ControlWarnings = ({ changeWarning, resetWarnings }) => {
     AOC2HC = useCheckbox(false),
     AOC2H = useCheckbox(false);
 
-  const aka = useSelector((state) => state.scoreboard.aka);
+  const main = useSelector((state) => state.scoreboard.main);
 
   const akaWarnings = {
     akac1c: AKAC1C.checked,
@@ -84,164 +84,164 @@ const ControlWarnings = ({ changeWarning, resetWarnings }) => {
   };
 
   const content =
-    aka == 'left' ? (
+    main == 'left' ? (
       <Buttons>
         <Sportsman color={'aka'}>
           <div>
-            <label>
+            <Label>
               C1C
-              <input type="checkbox" {...AKAC1C.bind} />
-            </label>
-            <label>
+              <Input type="checkbox" {...AKAC1C.bind} />
+            </Label>
+            <Label>
               C1K
-              <input type="checkbox" {...AKAC1K.bind} />
-            </label>
-            <label>
+              <Input type="checkbox" {...AKAC1K.bind} />
+            </Label>
+            <Label>
               C1HC
-              <input type="checkbox" {...AKAC1HC.bind} />
-            </label>
-            <label>
+              <Input type="checkbox" {...AKAC1HC.bind} />
+            </Label>
+            <Label>
               C1H
-              <input type="checkbox" {...AKAC1H.bind} />
-            </label>
+              <Input type="checkbox" {...AKAC1H.bind} />
+            </Label>
           </div>
           <div>
-            <label>
+            <Label>
               C2C
-              <input type="checkbox" {...AKAC2C.bind} />
-            </label>
-            <label>
+              <Input type="checkbox" {...AKAC2C.bind} />
+            </Label>
+            <Label>
               C2K
-              <input type="checkbox" {...AKAC2K.bind} />
-            </label>
-            <label>
+              <Input type="checkbox" {...AKAC2K.bind} />
+            </Label>
+            <Label>
               C2HC
-              <input type="checkbox" {...AKAC2HC.bind} />
-            </label>
-            <label>
+              <Input type="checkbox" {...AKAC2HC.bind} />
+            </Label>
+            <Label>
               C2H
-              <input type="checkbox" {...AKAC2H.bind} />
-            </label>
+              <Input type="checkbox" {...AKAC2H.bind} />
+            </Label>
           </div>
         </Sportsman>
         <Sportsman color={'ao'}>
           <div>
-            <label>
+            <Label>
               C1C
-              <input type="checkbox" {...AOC1C.bind} />
-            </label>
-            <label>
+              <Input type="checkbox" {...AOC1C.bind} />
+            </Label>
+            <Label>
               C1K
-              <input type="checkbox" {...AOC1K.bind} />
-            </label>
-            <label>
+              <Input type="checkbox" {...AOC1K.bind} />
+            </Label>
+            <Label>
               C1HC
-              <input type="checkbox" {...AOC1HC.bind} />
-            </label>
-            <label>
+              <Input type="checkbox" {...AOC1HC.bind} />
+            </Label>
+            <Label>
               C1H
-              <input type="checkbox" {...AOC1H.bind} />
-            </label>
+              <Input type="checkbox" {...AOC1H.bind} />
+            </Label>
           </div>
 
           <div>
-            <label>
+            <Label>
               C2C
-              <input type="checkbox" {...AOC2C.bind} />
-            </label>
-            <label>
+              <Input type="checkbox" {...AOC2C.bind} />
+            </Label>
+            <Label>
               C2K
-              <input type="checkbox" {...AOC2K.bind} />
-            </label>
-            <label>
+              <Input type="checkbox" {...AOC2K.bind} />
+            </Label>
+            <Label>
               C2HC
-              <input type="checkbox" {...AOC2HC.bind} />
-            </label>
-            <label>
+              <Input type="checkbox" {...AOC2HC.bind} />
+            </Label>
+            <Label>
               C2H
-              <input type="checkbox" {...AOC2H.bind} />
-            </label>
+              <Input type="checkbox" {...AOC2H.bind} />
+            </Label>
           </div>
         </Sportsman>
       </Buttons>
     ) : (
       <Buttons>
         <Sportsman color={'ao'}>
-          <div>
-            <label>
-              C1C
-              <input type="checkbox" {...AOC1C.bind} />
-            </label>
-            <label>
-              C1K
-              <input type="checkbox" {...AOC1K.bind} />
-            </label>
-            <label>
-              C1HC
-              <input type="checkbox" {...AOC1HC.bind} />
-            </label>
-            <label>
-              C1H
-              <input type="checkbox" {...AOC1H.bind} />
-            </label>
-          </div>
+          <Div>
+            <Label state={AOC1C.checked}>
+              <Span>C1C</Span>
+              <Input state={AOC1C.checked} type="checkbox" {...AOC1C.bind} />
+            </Label>
+            <Label state={AOC1K.checked}>
+              <Span>C1K</Span>
+              <Input type="checkbox" {...AOC1K.bind} />
+            </Label>
+            <Label>
+              <Span>C1HC</Span>
+              <Input type="checkbox" {...AOC1HC.bind} />
+            </Label>
+            <Label>
+              <Span>C1H</Span>
+              <Input type="checkbox" {...AOC1H.bind} />
+            </Label>
+          </Div>
 
-          <div>
-            <label>
-              C2C
-              <input type="checkbox" {...AOC2C.bind} />
-            </label>
-            <label>
-              C2K
-              <input type="checkbox" {...AOC2K.bind} />
-            </label>
-            <label>
-              C2HC
-              <input type="checkbox" {...AOC2HC.bind} />
-            </label>
-            <label>
-              C2H
-              <input type="checkbox" {...AOC2H.bind} />
-            </label>
-          </div>
+          <Div>
+            <Label>
+              <Span>C2C</Span>
+              <Input type="checkbox" {...AOC2C.bind} />
+            </Label>
+            <Label>
+              <Span>C2K</Span>
+              <Input type="checkbox" {...AOC2K.bind} />
+            </Label>
+            <Label>
+              <Span>C2HC</Span>
+              <Input type="checkbox" {...AOC2HC.bind} />
+            </Label>
+            <Label>
+              <Span>C2H</Span>
+              <Input type="checkbox" {...AOC2H.bind} />
+            </Label>
+          </Div>
         </Sportsman>
         <Sportsman color={'aka'}>
-          <div>
-            <label>
-              C1C
-              <input type="checkbox" {...AKAC1C.bind} />
-            </label>
-            <label>
-              C1K
-              <input type="checkbox" {...AKAC1K.bind} />
-            </label>
-            <label>
-              C1HC
-              <input type="checkbox" {...AKAC1HC.bind} />
-            </label>
-            <label>
-              C1H
-              <input type="checkbox" {...AKAC1H.bind} />
-            </label>
-          </div>
-          <div>
-            <label>
-              C2C
-              <input type="checkbox" {...AKAC2C.bind} />
-            </label>
-            <label>
-              C2K
-              <input type="checkbox" {...AKAC2K.bind} />
-            </label>
-            <label>
-              C2HC
-              <input type="checkbox" {...AKAC2HC.bind} />
-            </label>
-            <label>
-              C2H
-              <input type="checkbox" {...AKAC2H.bind} />
-            </label>
-          </div>
+          <Div>
+            <Label>
+              <Span>C1C</Span>
+              <Input type="checkbox" {...AKAC1C.bind} />
+            </Label>
+            <Label>
+              <Span>C1K</Span>
+              <Input type="checkbox" {...AKAC1K.bind} />
+            </Label>
+            <Label>
+              <Span>C1HC</Span>
+              <Input type="checkbox" {...AKAC1HC.bind} />
+            </Label>
+            <Label>
+              <Span>C1H</Span>
+              <Input type="checkbox" {...AKAC1H.bind} />
+            </Label>
+          </Div>
+          <Div>
+            <Label>
+              <Span>C2C</Span>
+              <Input type="checkbox" {...AKAC2C.bind} />
+            </Label>
+            <Label>
+              <Span>C2K</Span>
+              <Input type="checkbox" {...AKAC2K.bind} />
+            </Label>
+            <Label>
+              <Span>C2HC</Span>
+              <Input type="checkbox" {...AKAC2HC.bind} />
+            </Label>
+            <Label>
+              <Span>C2H</Span>
+              <Input type="checkbox" {...AKAC2H.bind} />
+            </Label>
+          </Div>
         </Sportsman>
       </Buttons>
     );
@@ -249,7 +249,8 @@ const ControlWarnings = ({ changeWarning, resetWarnings }) => {
   return (
     <Block>
       {content}
-      <button onClick={() => reset()}>RESET warnings</button>
+
+      <Button onClick={() => reset()}>RESET warnings</Button>
     </Block>
   );
 };
@@ -264,14 +265,56 @@ export default connect(null, mapDispatchToProps)(ControlWarnings);
 const Block = styled.div`
   text-align: center;
   display: flex;
+  flex-direction: column;
+`;
+
+const Div = styled.div`
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
 `;
 
 const Buttons = styled.div`
   display: flex;
+  justify-content: space-around;
 `;
+
+const Button = styled.button`
+  padding: 5px;
+  margin: 5px auto;
+`;
+
 
 const Sportsman = styled.div`
   color: ${(props) => (props.color === 'aka' ? 'red' : 'blue')};
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+  height: min(40vh, 100px);
+  border: 1px solid black;
+`;
+
+const Label = styled.label`
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  border: 1px solid black;
+  padding: 5px;
+`;
+
+const Input = styled.input`
+  position: absolute;
+  z-index: -1;
+  background-color: ${(props) => (props.state ? 'blue' : 'red')};
+`;
+const Span = styled.span`
+  position: relative;
+  padding: 0 0 0 30px;
+  cursor: pointer;
+  &::before {
+  }
+
+  &::after {
+  }
 `;

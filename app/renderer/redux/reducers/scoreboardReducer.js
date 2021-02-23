@@ -1,8 +1,8 @@
-import { SET_CONTROL_SCOREBOARD, SET_SCOREBOARD } from '../types';
+import { SET_CONTROL_SCOREBOARD, SET_SCOREBOARD, SET_CONTROL_PANEL } from '../types';
 
 const initialState = {
-  main: "right",
-  out: "left"
+  main: 'right',
+  out: 'left',
 };
 
 export const scoreboardReducer = (state = initialState, action) => {
