@@ -22,6 +22,9 @@ const Block = styled.div`
   display: grid;
   grid-template-columns: repeat(2,  50%);
   grid-template-rows: minmax(500px, 65%) auto;
+
+  font-family: Roboto;
+  font-weight: 400;
 `;
 
 const Board = styled.div`

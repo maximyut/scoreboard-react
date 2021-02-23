@@ -30,12 +30,12 @@ mac:
 
 win:
   target: nsis
-  icon: "build/assets/icons/scoreboard.ico"
+  icon: "dist-assets/icons/scoreboard.ico"
 
-nsis: 
+nsis:
   oneClick: "false"
   allowToChangeInstallationDirectory: "true"
-  installerIcon: "build/assets/icons/scoreboard.ico"
+  installerIcon: "dist-assets/icons/scoreboard.ico"
 
 linux:
   target:

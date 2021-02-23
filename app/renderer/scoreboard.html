@@ -2,26 +2,56 @@
 <html>
 
 <head>
-    <title>Scoreboard</title>
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'">
+  <title>Scoreboard</title>
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'">
 </head>
 
 <body>
-    <div class="scoreboard"></div>
-    <script src="./scoreboard.js" data-container="#app"></script>
+  <div class="scoreboard"></div>
+  <script src="./scoreboard.js" data-container="#app"></script>
 </body>
 <style>
-    @font-face {
-        font-family: LCD;
-        src: url(../assets/fonts/LCD.ttf);
-    }
-    body {
-        margin: 0;
-        overflow: hidden;
-    }
-    .scoreboard {
-        height: 100vh;
-    }
+  @font-face {
+    font-family: LCD;
+    src: url('../../dist-assets/fonts/LCD.ttf');
+  }
+
+  @font-face {
+    font-family: Roboto;
+    src: url('../../dist-assets/fonts/Roboto-Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: Roboto;
+    src: url('../../dist-assets/fonts/Roboto-Medium.ttf');
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: Roboto;
+    src: url('../../dist-assets/fonts/Roboto-Bold.ttf');
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: Roboto;
+    src: url('../../dist-assets/fonts/Roboto-Black.ttf');
+    font-weight: 900;
+    font-style: normal;
+  }
+
+  body {
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .scoreboard {
+    height: 100vh;
+  }
 </style>
 
 </html>

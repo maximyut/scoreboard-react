@@ -41,16 +41,12 @@ const Timer = styled.div`
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
 
-  /* padding: 5px; */
-  /* min-width: 3%; */
-  /* width: 18vw; */
-
   background-color: black;
-  /* border: 2px solid white; */
 
   text-align: center;
   font-family: LCD;
-  font-size: 15vmin;
+  font-size: min(15vmin, 100px);
+
   color: ${(props) => (props.state ? 'yellow' : 'white')};
 `;
 

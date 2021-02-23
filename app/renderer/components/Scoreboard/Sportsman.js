@@ -5,7 +5,7 @@ import Warnings from './Warnings';
 
 export default function Sportsman({ color, main }) {
   return (
-    <Block color={color}>
+    <Block color={color} main={main}>
       <Info>
         <div>{color.toUpperCase()}</div>
         <div>FirstName SecondName</div>
@@ -24,8 +24,11 @@ export default function Sportsman({ color, main }) {
 const Block = styled.div`
   width: 50vw;
   height: 100%;
-  padding: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+
   padding-bottom: 0;
+  box-sizing: content-box;
 
   display: flex;
   flex-direction: column;
@@ -33,7 +36,7 @@ const Block = styled.div`
 
   background-color: black;
 
-  font-size: 4vh;
+  font-size: ${(props) => props.main ? 'min(4vh, 30px)' : '4vh'} ;
   /* text-align: ${(props) => (props.color == 'aka' ? 'left' : 'right')}; */
   text-align: center;
   color: ${(props) => (props.color == 'aka' ? 'red' : 'blue')};

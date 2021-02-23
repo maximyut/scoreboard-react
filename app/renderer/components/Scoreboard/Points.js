@@ -15,16 +15,14 @@ const Points = ({
   const points = color === 'aka' ? pointsAka : pointsAo;
   const position = main ? mainPosition : outPosition;
 
-  console.log(winner)
-
   return (
     <Block>
       <div>
-        <Senshu c={color} senshu={senshu}>
+        <Senshu c={color} senshu={senshu} main={main}>
           S
         </Senshu>
 
-        <Point c={color} winner={winner} position={position}>
+        <Point c={color} winner={winner} position={position} main={main}>
           {points}
         </Point>
       </div>
@@ -70,7 +68,7 @@ const Point = styled.div.attrs((props) => ({
   a: props.position === 'right' ? 'right' : 'left',
   o: props.position === 'right' ? 'left' : 'right',
 }))`
-  font-size: 20vmin;
+  font-size: ${(props) => props.main ? 'min(20vmin, 100px)' : '20vmin'} ;
   font-family: LCD;
   text-align: ${(props) => (props.c === 'aka' ? props.a : props.o)};
   color: ${(props) => (props.color)};
@@ -96,7 +94,9 @@ const Senshu = styled.div.attrs((props) => ({
 
   text-align: center;
   vertical-align: center;
-  font-size: 5vmin;
+  font-size: min(5vmin, 100px);
+  font-size: ${(props) => props.main ? 'min(5vmin, 30px)' : '4vh'} ;
+
   color: ${(props) => (props.senshu !== 'null' && props.c == props.senshu ? 'white' : 'black')};
   font-family: 'Times New Roman', Times, serif;
 `;

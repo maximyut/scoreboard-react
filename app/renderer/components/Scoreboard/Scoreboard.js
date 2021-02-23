@@ -12,13 +12,13 @@ const Scoreboard = ({ main }) => {
 
   const content =
     position == 'left' ? (
-      <Sportsmen>
+      <Sportsmen main={main}>
         <Sportsman color={'aka'} main={main} />
         <Time />
         <Sportsman color={'ao'} main={main} />
       </Sportsmen>
     ) : (
-      <Sportsmen>
+      <Sportsmen main={main}>
         <Sportsman color={'ao'} main={main} />
         <Time />
         <Sportsman color={'aka'} main={main} />
@@ -40,4 +40,8 @@ const Sportsmen = styled.div`
 
   display: flex;
   position: relative;
+
+  font-family: Roboto;
+  font-weight: 700;
+
 `;
